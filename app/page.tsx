@@ -1,162 +1,57 @@
-import Link from "next/link";
 import type { Metadata } from "next";
-import { Sparkles, ArrowRight, Rss } from "lucide-react";
-import { getFeaturedPosts, getRecentPosts, getAllCategories } from "@/lib/queries";
-import PostCard from "@/components/PostCard";
+import { Plus_Jakarta_Sans } from "next/font/google";
+import { Navbar } from "@/components/outrank/Navbar";
+import { Footer } from "@/components/outrank/Footer";
+import { Hero, Stats, ClientSuccess, CaseStudies, ProblemSolution, HowItWorks } from "@/components/outrank/IntroSections";
+import { Features, BacklinkSection, Integrations, AdditionalFeatures, WritingExamples } from "@/components/outrank/ProductSections";
+import { AIInSEO, Testimonials, Pricing, Questions, FinalCTA } from "@/components/outrank/ClosingSections";
+import { faqs, site } from "@/data/homepage";
+import "./outrank.css";
+
+const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--or-font-jakarta" });
 
 export const metadata: Metadata = {
-  title: "DevPulse | Modern Dev Articles",
-  description:
-    "In-depth articles on Next.js, TypeScript, DevOps, Design, AI, and career growth for modern developers.",
-  alternates: {
-    canonical: "/",
-    languages: {
-      "en-US": "/",
-    },
-  },
+  title: { absolute: "Outrank - Grow Organic Traffic on Auto-Pilot" },
+  description: "Get recommended by ChatGPT & Rank on Google. Get done-for-you Blog Posts, Backlinks and Free Tools while you sleep.",
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "DevPulse | Modern Dev Articles",
-    description:
-      "In-depth articles on Next.js, TypeScript, DevOps, Design, AI, and career growth for modern developers.",
+    title: "Outrank - Grow Organic Traffic on Auto-Pilot",
+    description: "Get recommended by ChatGPT & Rank on Google. Get done-for-you Blog Posts, Backlinks and Free Tools while you sleep.",
     url: "/",
-    siteName: "DevPulse",
+    siteName: "Outrank",
     type: "website",
-    images: [
-      {
-        url: "/opengraph-image",
-        width: 1200,
-        height: 630,
-        alt: "DevPulse | Modern Dev Articles",
-      },
-    ],
+    images: [{ url: "/assets/outrank/misc/outrank-og.png", width: 2400, height: 1200, alt: "Outrank organic traffic product preview" }],
   },
   twitter: {
     card: "summary_large_image",
-    site: "@devpulse",
-    creator: "@devpulse",
-    title: "DevPulse | Modern Dev Articles",
-    description:
-      "In-depth articles on Next.js, TypeScript, DevOps, Design, AI, and career growth for modern developers.",
-    images: ["/opengraph-image"],
+    site: "@outrank_so",
+    creator: "@outrank_so",
+    title: "Outrank - Grow Organic Traffic on Auto-Pilot",
+    description: "Get recommended by ChatGPT & Rank on Google. Get done-for-you Blog Posts, Backlinks and Free Tools while you sleep.",
+    images: ["/assets/outrank/misc/outrank-og.png"],
+  },
+  icons: {
+    icon: { url: "/assets/outrank/misc/icon.png", type: "image/png", sizes: "192x192" },
+    apple: { url: "/assets/outrank/misc/apple-icon.png", sizes: "180x180" },
   },
 };
 
-export default async function HomePage() {
-  const [featured, recent, categories] = await Promise.all([
-    getFeaturedPosts(1),
-    getRecentPosts(6),
-    getAllCategories(),
-  ]);
-
-  const hero = featured[0];
-
-  return (
-    <>
-      {/* ── Hero ──────────────────────────────────────────── */}
-      <section className="hero" aria-labelledby="hero-heading">
-        <div className="container">
-          <span className="hero-eyebrow" style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
-            <Sparkles size={14} /> For developers who ship
-          </span>
-          <h1 id="hero-heading" className="hero-title">
-            Stay Sharp.<br />
-            <span className="gradient">Build Better.</span>
-          </h1>
-          <p className="hero-desc">
-            Deep-dive articles on Next.js, TypeScript, DevOps, Design Systems, and AI, published weekly by engineers in the trenches.
-          </p>
-          <div className="hero-actions">
-            <Link href="/blog" className="btn btn-primary" style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
-              Browse All Articles <ArrowRight size={16} />
-            </Link>
-            <Link href="/feed.xml" className="btn btn-outline" style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
-              <Rss size={16} /> Subscribe via RSS
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Featured Post ──────────────────────────────────── */}
-      {hero && (
-        <section className="section" aria-labelledby="featured-heading">
-          <div className="container">
-            <div className="section-header">
-              <h2 id="featured-heading" className="section-title">
-                <span aria-hidden="true" />
-                Featured Article
-              </h2>
-            </div>
-            <article className="featured-post">
-              {hero.coverImage && (
-                <img
-                  src={hero.coverImage}
-                  alt={hero.title}
-                  className="featured-post-image"
-                />
-              )}
-              <div className="featured-post-body">
-                <span className="featured-badge">
-                  <Sparkles size={12} /> Featured
-                </span>
-                <h3 className="featured-post-title">
-                  <Link href={`/blog/${hero.slug}`}>{hero.title}</Link>
-                </h3>
-                <p className="featured-post-excerpt">{hero.excerpt}</p>
-                <div className="featured-post-meta">
-                  <Link href={`/author/${hero.author.slug}`} className="author-link">
-                    {hero.author.name}
-                  </Link>
-                  <span>·</span>
-                  <time dateTime={new Date(hero.publishedAt).toISOString()}>
-                    {new Date(hero.publishedAt).toLocaleDateString("en-US", {
-                      month: "long", day: "numeric", year: "numeric",
-                    })}
-                  </time>
-                </div>
-              </div>
-            </article>
-          </div>
-        </section>
-      )}
-
-      {/* ── Categories ─────────────────────────────────────── */}
-      <section className="section" aria-labelledby="categories-heading">
-        <div className="container">
-          <div className="section-header">
-            <h2 id="categories-heading" className="section-title">
-              <span aria-hidden="true" />
-              Browse by Topic
-            </h2>
-          </div>
-          <nav aria-label="Article categories" className="category-grid">
-            {categories.map((cat) => (
-              <Link key={cat.slug} href={`/category/${cat.slug}`} className="category-card">
-                {cat.name}
-              </Link>
-            ))}
-          </nav>
-        </div>
-      </section>
-
-      {/* ── Recent Posts ───────────────────────────────────── */}
-      <section className="section" aria-labelledby="recent-heading">
-        <div className="container">
-          <div className="section-header">
-            <h2 id="recent-heading" className="section-title">
-              <span aria-hidden="true" />
-              Recent Articles
-            </h2>
-            <Link href="/blog" className="section-link" style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
-              View all <ArrowRight size={14} />
-            </Link>
-          </div>
-          <div className="posts-grid">
-            {recent.map((post) => (
-              <PostCard key={post.slug} post={post} />
-            ))}
-          </div>
-        </div>
-      </section>
-    </>
-  );
+export default function HomePage() {
+  return <div className={`outrank-home ${jakarta.variable}`}>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        { "@type": "Organization", name: "Outrank", url: site, logo: `${site}/icon.png` },
+        { "@type": "WebSite", name: "Outrank", url: site },
+        { "@type": "FAQPage", mainEntity: faqs.map(([name, text]) => ({ "@type": "Question", name, acceptedAnswer: { "@type": "Answer", text } })) },
+      ],
+    }).replace(/</g, "\\u003c") }} />
+    <Navbar />
+    <div id="outrank-main">
+      <Hero /><Stats /><ClientSuccess /><CaseStudies /><ProblemSolution /><HowItWorks />
+      <Features /><BacklinkSection /><Integrations /><AdditionalFeatures /><WritingExamples />
+      <AIInSEO /><Testimonials /><Pricing /><Questions /><FinalCTA />
+    </div>
+    <Footer />
+  </div>;
 }

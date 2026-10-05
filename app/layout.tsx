@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Link from "next/link";
 import { Zap, Search, Route as RouteIcon } from "lucide-react";
+import { DevPulseOnly } from "@/components/DevPulseOnly";
 import ImageLightbox from "@/components/ImageLightbox";
 import "./globals.css";
 
@@ -17,6 +18,7 @@ export const metadata: Metadata = {
   description:
     "In-depth articles on Next.js, TypeScript, DevOps, Design, AI, and career growth for modern developers.",
   metadataBase: new URL(siteUrl),
+  icons: { icon: "/favicon.ico" },
   alternates: {
     canonical: "/",
     languages: {
@@ -91,10 +93,12 @@ export default function RootLayout({
   return (
     <html lang="en" data-scroll-behavior="smooth">
       <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
+        <DevPulseOnly>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+          />
+        </DevPulseOnly>
       </head>
       <body className={inter.className}>
         <ImageLightbox />
@@ -102,6 +106,7 @@ export default function RootLayout({
           Skip to main content
         </a>
 
+        <DevPulseOnly>
         <header className="site-header">
           <div className="container header-inner">
             <Link href="/" className="site-logo" aria-label="DevPulse home">
@@ -124,11 +129,13 @@ export default function RootLayout({
             </nav>
           </div>
         </header>
+        </DevPulseOnly>
 
         <main id="main-content" className="site-main">
           {children}
         </main>
 
+        <DevPulseOnly>
         <footer className="site-footer">
           <div className="container footer-inner">
             <div className="footer-brand">
@@ -170,6 +177,7 @@ export default function RootLayout({
             <p>© {new Date().getFullYear()} DevPulse. Built with Next.js &amp; Prisma.</p>
           </div>
         </footer>
+        </DevPulseOnly>
       </body>
     </html>
   );
