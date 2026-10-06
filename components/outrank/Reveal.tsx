@@ -8,19 +8,29 @@ export function Reveal({ children }: { children: ReactNode }) {
   useEffect(() => {
     const node = element.current;
     if (!node) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) {
+    if (
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      !("IntersectionObserver" in window)
+    ) {
       return;
     }
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        node.dataset.visible = "true";
-        observer.disconnect();
-      }
-    }, { rootMargin: "0px 0px -100px 0px" });
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          node.dataset.visible = "true";
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "0px 0px -100px 0px" },
+    );
     observer.observe(node);
     node.dataset.ready = "true";
     return () => observer.disconnect();
   }, []);
 
-  return <div ref={element} className="or-reveal">{children}</div>;
+  return (
+    <div ref={element} className="or-reveal">
+      {children}
+    </div>
+  );
 }

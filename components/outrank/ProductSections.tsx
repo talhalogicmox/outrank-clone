@@ -4,7 +4,7 @@ import { asset, backlinks, extras, features, integrations, site } from "@/data/h
 import { Button, Container, Heading, Visual } from "./ui";
 
 export function Features() {
-  return <section className="or-section or-features"><Container><Heading eyebrow="FEATURES" description="Get new SEO-optimized articles daily, effortlessly.">Unlock your SEO growth</Heading><div className="or-features-grid">{features.map((feature, index) => <article key={feature.title} className="or-feature-card"><div className="or-feature-image"><Visual folder="features" name={feature.image} alt={`${feature.title} in Outrank`} /></div><div className="or-feature-copy"><h3>{feature.title}</h3><p>{feature.text}</p>{index === 1 && <Link href="/#examples">Read Examples ↗</Link>}</div></article>)}</div></Container></section>;
+  return <section className="or-section or-features"><Container><Heading eyebrow="FEATURES" description="Get new SEO-optimized articles daily, effortlessly.">Unlock your SEO growth</Heading><div className="or-features-grid">{features.map((feature, index) => <article key={feature.title} className="or-feature-card"><div className="or-feature-copy"><h3>{feature.title}</h3><p>{feature.text}</p>{index === 1 ? <Link href="/#examples">Read Examples ↗</Link> : <Button>Start for Free</Button>}</div><div className="or-feature-image"><Visual folder="features" name={feature.image} alt={`${feature.title} in Outrank`} /></div></article>)}</div></Container></section>;
 }
 
 export function BacklinkSection() {

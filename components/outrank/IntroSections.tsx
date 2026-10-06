@@ -12,18 +12,20 @@ export function Hero() {
 }
 
 export function Stats() {
-  return <section className="or-stats"><div className="or-stats-bg" aria-hidden="true"><Image src={asset("backgrounds", "bg-stats.webp")} alt="" fill sizes="100vw" /></div><Container><div className="or-stats-grid">{[["10,000+", "ChatGPT mentions secured"], ["750,000+", "Articles Created"], ["25,000+", "Backlinks Added"]].map(([number, label]) => <div key={label}><strong>{number}</strong><span>{label}</span></div>)}</div></Container></section>;
+  return <section className="or-stats"><div className="or-stats-band"><div className="or-stats-bg" aria-hidden="true"><Image src={asset("backgrounds", "bg-stats.webp")} alt="" fill sizes="100vw" /></div><Container><div className="or-stats-grid">{[["10,000", "ChatGPT mentions secured"], ["750,000", "Articles Created"], ["25,000", "Backlinks Added"]].map(([number, label]) => <div key={label}><strong>{number}<em>+</em></strong><span>{label}</span></div>)}</div></Container></div></section>;
 }
 
 export function ClientSuccess() {
-  return <section className="or-success"><Container><Heading eyebrow="CLIENTS SUCCESS">The Outrank effect</Heading></Container><SuccessCarousel /></section>;
+  return <section className="or-success">
+    <div className="or-success-pattern" aria-hidden="true"><Image src={asset("case-studies", "clients-success.webp")} alt="" fill sizes="100vw" /></div>
+    <Container><Heading eyebrow="CLIENTS SUCCESS">The Outrank <span>effect</span></Heading><SuccessCarousel /><div className="or-success-action"><Button>Start for Free</Button></div></Container>
+  </section>;
 }
 
 export function CaseStudies() {
   return <section className="or-section or-cases" id="case-studies"><Container>
-    <div className="or-cases-top"><Heading eyebrow="CASE STUDIES" description="Real Search Console data from named customers. Across 2,119 sites, the median site reached 2.0× its clicks about 7 months in.">The results, month by month</Heading><a href="https://www.outrank.so/case-studies/do-ai-seo-agents-work">Read the study ↗</a></div>
+    <div className="or-cases-top"><div className="or-cases-heading"><Eyebrow>CASE STUDIES</Eyebrow><h2>The results, <span>month by month</span></h2><p>Real Search Console data from named customers. Across 2,119 sites, the median site reached 2.0× its clicks about 7 months in. <a href="https://www.outrank.so/case-studies/do-ai-seo-agents-work">Read the study</a></p></div><a className="or-cases-all" href="https://www.outrank.so/case-studies">All case studies →</a></div>
     <div className="or-case-grid">{cases.map((item) => <a className="or-case-card" key={item.name} href={item.url}><div className="or-case-brand"><Image src={asset("testimonials", item.logo)} width={42} height={42} alt="" /><span><b>{item.name}</b><small>{item.category}</small></span></div><strong className="or-case-metric">{item.metric}</strong><p>{item.measure}</p><h3>{item.title}</h3><div className="or-case-person"><Image src={asset("testimonials", item.portrait)} width={35} height={35} alt="" /><span>{item.author}, {item.name}</span><span aria-hidden="true">↗</span></div></a>)}</div>
-    <a className="or-text-link" href="https://www.outrank.so/case-studies">All case studies ↗</a>
   </Container></section>;
 }
 
@@ -32,5 +34,5 @@ export function ProblemSolution() {
 }
 
 export function HowItWorks() {
-  return <section className="or-section or-how" id="howitworks"><Container><Heading eyebrow="HOW IT WORKS" description="We handle the SEO heavy lifting. Relax while we create daily ranking content to keep you ahead of the competition.">How we make magic happen</Heading><div className="or-how-grid">{steps.map((step, index) => <article key={step.title} className="or-how-step"><div className="or-how-image"><Visual folder="how-it-works" name={step.image} alt={step.title} /></div><div className="or-how-copy"><span className="or-step-num">0{index + 1}</span><h3>{step.title}</h3><p>{step.text}</p></div></article>)}</div><div className="or-center"><Button /></div></Container></section>;
+  return <section className="or-section or-how" id="howitworks"><Container><div className="or-how-intro"><div><Eyebrow>HOW IT WORKS</Eyebrow><h2>How we <span>make magic</span> happen</h2></div><div><p>We handle the SEO heavy lifting. Relax while we create daily ranking content to keep you ahead of the competition.</p><Button /></div></div><div className="or-how-grid">{steps.map((step) => <article key={step.title} className="or-how-step"><div className="or-how-image"><Visual folder="how-it-works" name={step.image} alt={step.title} /></div><div className="or-how-copy"><h3>{step.title}</h3><p>{step.text}</p></div></article>)}</div><div className="or-center or-how-mobile-cta"><Button /></div></Container></section>;
 }
